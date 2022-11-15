@@ -7,12 +7,12 @@ import { useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
     id: props.spec_User,
-    name: '',
-    phone_number: '',
+    name: props.contacts.filter(contact => contact.id == props.spec_User)[0].full_name,
+    phone_number: props.contacts.filter(contact => contact.id == props.spec_User)[0].contact_number,
 });
-
+// contacts.filter(elem => elem.id == spec_User)[0].contact_number
 const submit = () => {
-    form.post(route(''), {
+    form.post(route('update'), {
         onFinish: () => form.reset('name', 'name_confirmation'),
     });
     console.log("submitted");
@@ -37,15 +37,14 @@ const props = defineProps({
             <div>
                 <InputLabel for="name" value="Name" />
                 <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
-                    autocomplete="name" :value="contacts.filter(elem => elem.id == spec_User)[0].full_name" />
+                    autocomplete="name" />
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
             <div class="mt-4">
                 <InputLabel for="contact" value="contact" />
                 <TextInput id="contact" type="text" class="mt-1 block w-full" v-model="form.phone_number" required
-                    autocomplete="phone_number"
-                    :value="contacts.filter(elem => elem.id == spec_User)[0].contact_number" />
+                    autocomplete="phone_number" />
                 <InputError class="mt-2" :message="form.errors.phone_number" />
             </div>
 

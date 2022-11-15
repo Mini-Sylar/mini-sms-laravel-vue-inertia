@@ -34,7 +34,7 @@ Route::get('/dashboard', [ContactsController::class, 'getData'])->middleware(['a
 // Delete
 Route::get('/delete/{id}', [ContactsController::class, 'deleteData'])->middleware(['auth', 'verified'])->name('delete');
 // Get Specific Contact
-Route::get('/edit/{id}', [ContactsController::class, 'getSpecificUser'])->middleware(['auth', 'verified'])->name('edit');
+Route::post('/update', [ContactsController::class, 'updateUser'])->middleware(['auth', 'verified'])->name('update');
 
 
 require __DIR__ . '/auth.php';

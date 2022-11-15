@@ -28,9 +28,12 @@ class ContactsController extends Controller
     {
         Contact::find($id)->delete();
     }
-    function updateUser($id)
+    function updateUser(Request $req)
     {
-      
-
+        //   Find user with id
+        $contact = Contact::find($req->input('id'));
+        $contact->full_name = $req->input('name');
+        $contact->contact_number = $req->input('phone_number');
+        $contact->save();
     }
 }
