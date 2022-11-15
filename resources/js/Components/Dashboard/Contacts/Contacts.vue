@@ -16,7 +16,7 @@
                     <td>{{ item.contact_number }}</td>
                     <td>
                         <div class="actions">
-                            <Link :href="route('edit', [item.id])" v-on:click="getSpecificUserId(item.id)"
+                            <Link v-on:click="getSpecificUserId(item.id)"
                                 preserve-state>Edit
                             </Link>
                             <Link :href="route('delete', [item.id])">Delete</Link>

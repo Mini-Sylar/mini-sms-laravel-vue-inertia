@@ -6,12 +6,13 @@ import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
+    id: props.spec_User,
     name: '',
     phone_number: '',
 });
 
 const submit = () => {
-    form.post(route('add-contact'), {
+    form.post(route(''), {
         onFinish: () => form.reset('name', 'name_confirmation'),
     });
     console.log("submitted");

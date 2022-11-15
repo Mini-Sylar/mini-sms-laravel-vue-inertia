@@ -28,10 +28,9 @@ class ContactsController extends Controller
     {
         Contact::find($id)->delete();
     }
-    function getSpecificUser($id)
+    function updateUser($id)
     {
-        // return Contact::find($id);
-        // Return inertia dashboard view preserve state
+      
 
     }
 }
