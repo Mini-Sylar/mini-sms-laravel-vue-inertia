@@ -19,8 +19,10 @@ class ContactsController extends Controller
     }
     function getData()
     {
-        $data = Contact::all();
-        $groups  = Group::all();
+        // get contact created by user
+        $data =
+            Contact::where('created_by', auth()->user()->name)->get();
+        $groups  = Group::where('created_by', auth()->user()->name)->get();
         return inertia('Dashboard', ['contacts' => $data, 'groups' => $groups]);
     }
 
