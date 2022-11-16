@@ -12,7 +12,7 @@ const form = useForm({
 });
 // contacts.filter(elem => elem.id == spec_User)[0].contact_number
 const submit = () => {
-    form.post(route('update'), {
+    form.post(route('update-contact'), {
         onFinish: () => form.reset('name', 'name_confirmation'),
     });
     console.log("submitted");

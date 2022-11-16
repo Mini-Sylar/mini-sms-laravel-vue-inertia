@@ -19,7 +19,7 @@
                             <Link v-on:click="getSpecificUserId(item.id)"
                                 preserve-state>Edit
                             </Link>
-                            <Link :href="route('delete', [item.id])">Delete</Link>
+                            <Link :href="route('delete-contact', [item.id])">Delete</Link>
                         </div>
                     </td>
                 </tr>

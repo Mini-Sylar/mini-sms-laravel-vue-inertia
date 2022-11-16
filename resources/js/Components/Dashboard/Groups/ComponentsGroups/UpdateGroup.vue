@@ -6,35 +6,46 @@ import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
-    group_name: '',
-    phone_numbers: '',
+    id: props.spec_User,
+    group_name: props.groups.filter(contact => contact.id == props.spec_User)[0].group_name,
+    phone_numbers: props.groups.filter(contact => contact.id == props.spec_User)[0].contact_number,
+});
+// contacts.filter(elem => elem.id == spec_User)[0].contact_number
+const submit = () => {
+    form.post(route('update-group'), {
+        onFinish: () => form.reset('name', 'name_confirmation'),
+    });
+    console.log("submitted");
+};
+
+const props = defineProps({
+    spec_User: {
+        type: Number,
+    },
+    groups: {
+        type: Object,
+    },
 });
 
-const submit = () => {
-    form.post(route('add-group'), {
-        onFinish: () => form.reset('group_name', 'name_confirmation'),
-    });
-    console.log("submitted on group");
-};
 </script>
 
 <template>
-    <div class="is-modal show">
-        <button type="button" class="close-view" @click="$emit('close')">Close View</button>
+    <div class="is-modal-update show">
+        <button type="button" class="close-view" @click="$emit('close-update')">Close View</button>
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="group_name" value="Group Name" />
+                <InputLabel for="name" value="Name" />
                 <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.group_name" required autofocus
                     autocomplete="name" />
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.contact_number" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="contact" value="Contacts" />
+                <InputLabel for="contact" value="contact" />
                 <TextInput id="contact" type="text" class="mt-1 block w-full" v-model="form.phone_numbers" required
-                    autocomplete="username" placeholder="Add contacts separated by a comma" />
-                <InputError class="mt-2" :message="form.errors.name" />
+                    autocomplete="phone_number" />
+                <InputError class="mt-2" :message="form.errors.phone_numbers" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -52,7 +63,7 @@ const submit = () => {
     visibility: hidden;
 }
 
-.is-modal {
+.is-modal-update {
     position: absolute;
     top: 0;
     box-shadow: 0 0 0 100vmin rgba(0, 0, 0, 0.804);

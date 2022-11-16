@@ -12,6 +12,7 @@ const changeView = (whichView) => {
 }
 const props = defineProps({
     contacts: Object,
+    groups: Object,
 })
 
 </script>
@@ -45,7 +46,7 @@ const props = defineProps({
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="main-layout">
                                 <Contacts v-if="view === 'contacts'" v-bind:contacts="contacts"></Contacts>
-                                <Groups v-else-if="view === 'groups'"></Groups>
+                                <Groups v-else-if="view === 'groups'" v-bind:groups="groups"></Groups>
 
                             </div>
                         </div>

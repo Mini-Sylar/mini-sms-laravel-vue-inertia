@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Group;
 
 class ContactsController extends Controller
 {
@@ -19,7 +20,8 @@ class ContactsController extends Controller
     function getData()
     {
         $data = Contact::all();
-        return inertia('Dashboard', ['contacts' => $data]);
+        $groups  = Group::all();
+        return inertia('Dashboard', ['contacts' => $data,'groups'=>$groups]);
     }
 
     function deleteData($id)

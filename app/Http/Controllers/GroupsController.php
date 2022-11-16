@@ -11,15 +11,10 @@ class GroupsController extends Controller
     function addData(Request $req)
     {
         $contact = new Group;
-        $contact->full_name = $req->input('name');
-        $contact->contact_number = $req->input('phone_number');
+        $contact->group_name = $req->input('group_name');
+        $contact->contact_number = $req->input('phone_numbers');
         $contact->created_by = $req->user()->name;
         $contact->save();
-    }
-    function getData()
-    {
-        $data = Group::all();
-        return inertia('Dashboard', ['contacts' => $data]);
     }
 
     function deleteData($id)
@@ -30,8 +25,8 @@ class GroupsController extends Controller
     {
         //   Find user with id
         $contact = Group::find($req->input('id'));
-        $contact->full_name = $req->input('name');
-        $contact->contact_number = $req->input('phone_number');
+        $contact->group_name = $req->input('group_name');
+        $contact->contact_number = $req->input('phone_numbers');
         $contact->save();
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\GroupsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,21 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [ContactsController::class, 'getData']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/add-contact', [ContactsController::class, 'addData'])->middleware(['auth', 'verified'])->name('add-contact');
-Route::get('/dashboard', [ContactsController::class, 'getData'])->middleware(['auth', 'verified'])->name('dashboard');
-// Delete
-Route::get('/delete/{id}', [ContactsController::class, 'deleteData'])->middleware(['auth', 'verified'])->name('delete');
-// Get Specific Contact
-Route::post('/update', [ContactsController::class, 'updateUser'])->middleware(['auth', 'verified'])->name('update');
+// Contact Controller Routes
+Route::controller(ContactsController::class)->group(function () {
+    Route::get('/dashboard', 'getData')->name('dashboard');
+    Route::post('/add-contact', 'addData')->name('add-contact');
+    Route::get('/delete-contact{id}', 'deleteData')->name('delete-contact');
+    Route::post('/update-contact', 'updateUser')->name('update-contact');
+})->middleware(['auth', 'verified'])->name('dashboard');
+// Group Controller Routes
+Route::controller(GroupsController::class)->group(function () {
+    Route::post('/add-group', 'addData')->name('add-group');
+    Route::get('/delete-group{id}', 'deleteData')->name('delete-group');
+    Route::post('/update-group', 'updateUser')->name('update-group');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+
+// Group Routes
 
 require __DIR__ . '/auth.php';
