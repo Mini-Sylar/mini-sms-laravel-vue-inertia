@@ -4,9 +4,10 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import QuickLinks from "@/Components/Dashboard/Navigation/QuickLinks.vue";
 import Contacts from "@/Components/Dashboard/Contacts/Contacts.vue";
 import Groups from "@/Components/Dashboard/Groups/Groups.vue";
+import QuickMessages from "@/Components/Dashboard/QuickMessages/QuickMessages.vue";
 import { ref, computed } from 'vue'
 
-const view = ref("contacts");
+const view = ref("quick-messages");
 const changeView = (whichView) => {
     view.value = whichView;
 }
@@ -34,7 +35,7 @@ const props = defineProps({
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="quick-links">
                             <QuickLinks @groups="changeView('groups')" @contacts="changeView('contacts')"
-                                @quick-messages=""></QuickLinks>
+                                @quick-messages="changeView('quick-messages')"></QuickLinks>
                         </div>
                     </div>
                 </div>
@@ -45,6 +46,7 @@ const props = defineProps({
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="main-layout">
+                                <QuickMessages v-if="view === 'quick-messages'"></QuickMessages>
                                 <Contacts v-if="view === 'contacts'" v-bind:contacts="contacts"></Contacts>
                                 <Groups v-else-if="view === 'groups'" v-bind:groups="groups"></Groups>
 

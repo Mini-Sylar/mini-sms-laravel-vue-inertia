@@ -100,7 +100,7 @@ tr {
     padding: 10px 0;
     margin-bottom: 50px;
     border-radius: 25px;
-    width: 25%;
+    width: max(20%, 200px);
     background-color: #3b82f6;
     color: #fff;
 }
