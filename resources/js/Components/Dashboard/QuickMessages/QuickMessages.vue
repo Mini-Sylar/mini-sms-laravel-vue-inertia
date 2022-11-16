@@ -11,15 +11,15 @@
             <a v-on:click="isModalShow">Add from Contacts</a>
             <a v-on:click="isModalShowGroup">Add from Groups</a>
         </div>
-        <form>
+        <form @submit.prevent="submit">
             <div class="message-container">
                 <div class="text-container">
-                    <textarea v-model="form.message" id="" cols="30" rows="10"
-                        placeholder="Enter Message Here"></textarea>
+                    <textarea v-model="form.message" id="" cols="30" rows="10" placeholder="Enter Message Here"
+                        required></textarea>
                 </div>
                 <div class="contacts-container">
-                    <textarea name="contactsBody" id="" cols="30" rows="10" placeholder="Enter Contacts Here"
-                        v-model="form.contactsBody"></textarea>
+                    <textarea id="" cols="30" rows="10" placeholder="Enter Contacts Here"
+                        v-model="form.contactsBody" required></textarea>
                 </div>
             </div>
             <div class="send-message">

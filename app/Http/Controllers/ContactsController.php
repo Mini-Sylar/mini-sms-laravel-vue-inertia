@@ -40,12 +40,9 @@ class ContactsController extends Controller
     function sendMessage(Request $req)
     {
         // create array from comma seperated values
-        dd($req->input('contactsBody'));
         $contacts = rtrim($req->contactsBody, ',');
         $contacts = explode(',', $contacts);
         $message  = $req->message;
-
-        // Log::info($contacts);
         // remove last value in contacts array
         $url = env('MNOTIFY_QUICK_SMS') . '?key=' . env('MNOTIFY_API_KEY');
         $data = [
@@ -55,7 +52,6 @@ class ContactsController extends Controller
             'is_schedule' => 'false',
             'schedule_date' => ''
         ];
-        dd($data);
         // Send Message Here
         $ch = curl_init();
         $headers = array();
@@ -70,6 +66,6 @@ class ContactsController extends Controller
         curl_close($ch);
         // // Update Analytics
         // $analytics = analytic::where('user_name', session('user'))->first()->increment('number_of_messages_sent');
-        return back()->with('success', 'Message sent successfully');
+        // return back()->with('success', 'Message sent successfully');
     }
 }
