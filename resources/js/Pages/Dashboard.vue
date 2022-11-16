@@ -1,15 +1,17 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head } from "@inertiajs/inertia-vue3";
 import QuickLinks from "@/Components/Dashboard/Navigation/QuickLinks.vue";
 import Contacts from "@/Components/Dashboard/Contacts/Contacts.vue";
 import Groups from "@/Components/Dashboard/Groups/Groups.vue";
 import QuickMessages from "@/Components/Dashboard/QuickMessages/QuickMessages.vue";
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const view = ref("quick-messages");
+const viewTitle = ref("Quick Messages");
 const changeView = (whichView) => {
     view.value = whichView;
+    viewTitle.value = whichView.charAt(0).toUpperCase() + whichView.slice(1);
 }
 const props = defineProps({
     contacts: Object,
@@ -20,7 +22,7 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head :title="viewTitle" />
 
     <AuthenticatedLayout>
         <template #header>

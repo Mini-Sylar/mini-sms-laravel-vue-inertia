@@ -18,8 +18,8 @@
                         required></textarea>
                 </div>
                 <div class="contacts-container">
-                    <textarea id="" cols="30" rows="10" placeholder="Enter Contacts Here"
-                        v-model="form.contactsBody" required></textarea>
+                    <textarea id="" cols="30" rows="10" placeholder="Enter Contacts Here" v-model="form.contactsBody"
+                        required></textarea>
                 </div>
             </div>
             <div class="send-message">
@@ -67,6 +67,7 @@ export default {
         },
         submit() {
             this.$inertia.post('/send-message', this.form)
+            this.form.reset();
         },
     },
 }
