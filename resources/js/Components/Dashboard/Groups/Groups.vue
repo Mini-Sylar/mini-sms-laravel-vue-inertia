@@ -54,7 +54,10 @@ export default {
              </tr>
             <tr v-for="(item, index) in groups" :key="index">
                     <td>{{ item.group_name }}</td>
-                    <td>{{ item.contact_number }}</td>
+                    <td >
+                        <!-- FIXME: Remove brackets from array  -->
+                        <div class="group-members">{{ item.contact_number.split(',') }}</div>
+                    </td>
                     <td>
                         <div class="actions">
                             <Link v-on:click="getSpecificUserId(item.id)"
@@ -69,6 +72,12 @@ export default {
     </div>
 </template>
 
-<style lang="">
-    
+<style >
+.group-members {
+    width: 100%;
+    min-height: 10vh;
+    max-height: 10vh;
+    overflow-y: scroll;
+
+}
 </style>

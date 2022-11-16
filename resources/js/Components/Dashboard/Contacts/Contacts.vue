@@ -2,7 +2,8 @@
     <div>
         <a href="#" class="add-contact" v-on:click="isModalShow">Add Contact</a>
         <AddContact v-if="showModal" @close="isModalShow"></AddContact>
-        <UpdateContact v-if="showModalUpdate" @close-update="isModalShowUpdate" :spec_User="specific_user" :contacts="contacts">
+        <UpdateContact v-if="showModalUpdate" @close-update="isModalShowUpdate" :spec_User="specific_user"
+            :contacts="contacts">
         </UpdateContact>
         <div class="table-container">
             <table>
@@ -16,8 +17,7 @@
                     <td>{{ item.contact_number }}</td>
                     <td>
                         <div class="actions">
-                            <Link v-on:click="getSpecificUserId(item.id)"
-                                preserve-state>Edit
+                            <Link v-on:click="getSpecificUserId(item.id)" preserve-state>Edit
                             </Link>
                             <Link :href="route('delete-contact', [item.id])">Delete</Link>
                         </div>
@@ -81,7 +81,6 @@ th {
 }
 
 td {
-    width: 0%;
     text-align: center;
 }
 
