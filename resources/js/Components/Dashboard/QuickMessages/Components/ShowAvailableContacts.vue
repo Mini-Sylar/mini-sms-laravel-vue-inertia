@@ -1,5 +1,6 @@
 <template>
     <div class="show-contacts-contatiner is-modal">
+        <button type="button" class="close-view" @click="$emit('close-available-contacts')">Close View</button>
         <div class="table-container">
             <table>
                 <table>
@@ -7,13 +8,13 @@
                         <th>Name</th>
                         <th>Phone Number</th>
                     </tr>
-                    <tr>
+                    <tr v-for="(item, index) in contacts" :key="index">
                         <td>
                             <div class="contains-check">
-                                <Checkbox value="Name" class="contact-checkbox"></Checkbox> Place Holder Name
+                                <Checkbox value="Name" class="contact-checkbox"></Checkbox> {{ item.full_name }}
                             </div>
                         </td>
-                        <td>Place Holder Contact</td>
+                        <td>{{ item.contact_number }}</td>
                     </tr>
                 </table>
             </table>
@@ -34,7 +35,11 @@ export default {
     components: {
         "Checkbox": Checkbox,
     },
-}
+    props: {
+        contacts: Object,
+    },
+   
+};
 </script>
 <style scoped>
 .is-modal {
@@ -91,5 +96,16 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.close-view {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: .5rem;
 }
 </style>

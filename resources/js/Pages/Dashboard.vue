@@ -46,7 +46,9 @@ const props = defineProps({
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="main-layout">
-                                <QuickMessages v-if="view === 'quick-messages'"></QuickMessages>
+                                <QuickMessages v-if="view === 'quick-messages'" v-bind:contacts="contacts"
+                                    v-bind:groups="groups">
+                                </QuickMessages>
                                 <Contacts v-if="view === 'contacts'" v-bind:contacts="contacts"></Contacts>
                                 <Groups v-else-if="view === 'groups'" v-bind:groups="groups"></Groups>
 

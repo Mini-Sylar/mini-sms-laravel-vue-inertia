@@ -1,9 +1,10 @@
 <template>
     <div class="main-quick-container ">
-        <ShowAvailableContacts></ShowAvailableContacts>
+        <ShowAvailableContacts v-bind:contacts="contacts" @close-available-contacts="isModalShow" v-if="showModal">
+        </ShowAvailableContacts>
         <!-- <ShowAvailableGroup></ShowAvailableGroup> -->
         <div class="add-from-container">
-            <a>Add from Contacts</a>
+            <a v-on:click="isModalShow">Add from Contacts</a>
             <a>Add from Groups</a>
         </div>
         <div class="message-container">
@@ -28,7 +29,6 @@ export default {
     data() {
         return {
             showModal: false,
-            showModalUpdate: false,
             specific_user: 0,
         };
     },
@@ -36,6 +36,19 @@ export default {
         "ShowAvailableContacts": ShowAvailableContacts,
         // "ShowAvailableGroup": ShowAvailableGroup,
     },
+    props: {
+        contacts: Object,
+        groups: Object,
+    },
+    methods: {
+        isModalShow() {
+            this.showModal = !this.showModal;
+            console.log(this.showModal);
+        },
+        isModalShowUpdate() {
+            this.showModalUpdate = !this.showModalUpdate;
+        },
+    }
 }
 </script>
 <style scoped>
