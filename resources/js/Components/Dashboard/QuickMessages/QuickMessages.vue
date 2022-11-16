@@ -14,16 +14,16 @@
         <form @submit.prevent="submit">
             <div class="message-container">
                 <div class="text-container">
-                    <textarea v-model="form.message" id="" cols="30" rows="10" placeholder="Enter Message Here"
-                        required></textarea>
+                    <textarea required v-model="form.message" id="" cols="30" rows="10"
+                        placeholder="Enter Message Here"></textarea>
                 </div>
                 <div class="contacts-container">
-                    <textarea id="" cols="30" rows="10" placeholder="Enter Contacts Here" v-model="form.contactsBody"
-                        required></textarea>
+                    <textarea id="" required cols="30" rows="10" placeholder="Enter Contacts Here"
+                        v-model="form.contactsBody" class="contacts_text"></textarea>
                 </div>
             </div>
             <div class="send-message">
-                <a @click="submit">Send Message</a>
+                <button type="submit" @click="submit">Send Message</button>
             </div>
         </form>
     </div>
@@ -38,10 +38,9 @@ export default {
             showModal: false,
             showModalGroup: false,
             specific_user: 0,
-            contactsChosen: [],
             form: {
                 message: null,
-                contactsBody: null,
+                contactsBody: '',
             },
         };
     },
@@ -62,7 +61,7 @@ export default {
         },
         receivedIndividualContacts(data) {
             console.log("heard emit");
-            this.contactsChosen += data + ", ";
+            this.form.contactsBody += data;
             console.log(data);
         },
         submit() {
@@ -103,7 +102,7 @@ textarea {
 }
 
 a,
-.link-send {
+button {
     display: block;
     width: max(20%, 200px);
     height: 100%;
