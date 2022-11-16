@@ -1,18 +1,23 @@
 <template>
     <div class="main-quick-container ">
-        <ShowAvailableContacts v-bind:contacts="contacts" @close-available-contacts="isModalShow" v-if="showModal">
+        <ShowAvailableContacts v-bind:contacts="contacts" @close-available-contacts="isModalShow" v-if="showModal"
+            @send-data="receivedIndividualContacts">
         </ShowAvailableContacts>
+        <ShowAvailableGroup v-bind:groups="groups" @close-available-group="isModalShowGroup" v-if="showModalGroup"
+            @send-data="receivedIndividualContacts">
+        </ShowAvailableGroup>
         <!-- <ShowAvailableGroup></ShowAvailableGroup> -->
         <div class="add-from-container">
             <a v-on:click="isModalShow">Add from Contacts</a>
-            <a>Add from Groups</a>
+            <a v-on:click="isModalShowGroup">Add from Groups</a>
         </div>
         <div class="message-container">
             <div class="text-container">
                 <textarea name="" id="" cols="30" rows="10" placeholder="Enter Message Here"></textarea>
             </div>
             <div class="contacts-container">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Enter Contacts Here"></textarea>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Enter Contacts Here"
+                    v-model="contactsChosen"></textarea>
             </div>
         </div>
         <div class="send-message">
@@ -23,18 +28,20 @@
 </template>
 <script>
 import ShowAvailableContacts from './Components/ShowAvailableContacts.vue';
-// import ShowAvailableGroup from './Components/ShowAvailableGroup.vue';
+import ShowAvailableGroup from './Components/ShowAvailableGroup.vue';
 
 export default {
     data() {
         return {
             showModal: false,
+            showModalGroup: false,
             specific_user: 0,
+            contactsChosen: [],
         };
     },
     components: {
         "ShowAvailableContacts": ShowAvailableContacts,
-        // "ShowAvailableGroup": ShowAvailableGroup,
+        "ShowAvailableGroup": ShowAvailableGroup,
     },
     props: {
         contacts: Object,
@@ -43,10 +50,14 @@ export default {
     methods: {
         isModalShow() {
             this.showModal = !this.showModal;
-            console.log(this.showModal);
         },
-        isModalShowUpdate() {
-            this.showModalUpdate = !this.showModalUpdate;
+        isModalShowGroup() {
+            this.showModalGroup = !this.showModalGroup;
+        },
+        receivedIndividualContacts(data) {
+            console.log("heard emit");
+            this.contactsChosen += data + ", ";
+            console.log(data);
         },
     }
 }

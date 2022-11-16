@@ -1,44 +1,55 @@
 <template>
     <div class="show-contacts-contatiner is-modal">
-        <button type="button" class="close-view" @click="$emit('close-available-contacts')">Close View</button>
+        <button type="button" class="close-view" @click="$emit('close-available-contacts')">
+            Close View
+        </button>
         <div class="table-container">
             <table>
                 <table>
                     <tr>
+                        <th class="action"></th>
                         <th>Name</th>
                         <th>Phone Number</th>
                     </tr>
                     <tr v-for="(item, index) in contacts" :key="index">
+                        <td class="action">
+                            <input type="checkbox" :value="item.contact_number" v-model="contactsChosen" />
+                        </td>
                         <td>
-                            <div class="contains-check">
-                                <Checkbox value="Name" class="contact-checkbox"></Checkbox> {{ item.full_name }}
-                            </div>
+                            {{ item.full_name }}
                         </td>
                         <td>{{ item.contact_number }}</td>
                     </tr>
                 </table>
             </table>
         </div>
-        <div class="button">
+        <div class="preview">
+            <h4>Contacts Chosen:</h4>
+            {{ contactsChosen.toString() }}
+        </div>
+
+        <div class="button" @click="sendData">
+            <!-- TODO: Have button emmit something -->
             <a>Add Contact</a>
         </div>
     </div>
 </template>
 <script>
-import Checkbox from '@/Components/Checkbox.vue';
 export default {
     data: function () {
         return {
             showModal: false,
+            contactsChosen: [],
         };
-    },
-    components: {
-        "Checkbox": Checkbox,
     },
     props: {
         contacts: Object,
     },
-   
+    methods: {
+        sendData() {
+            this.$emit("send-data", this.contactsChosen);
+        },
+    },
 };
 </script>
 <style scoped>
@@ -46,7 +57,7 @@ export default {
     position: absolute;
     top: 0;
     box-shadow: 0 0 0 100vmin rgba(0, 0, 0, 0.804);
-    height: 50vh;
+    height: 70vh;
     background-color: whitesmoke;
     padding: 5rem;
     z-index: 11;
@@ -66,7 +77,7 @@ export default {
     color: white;
     border: none;
     cursor: pointer;
-    padding: .5rem;
+    padding: 0.5rem;
 }
 
 a {
@@ -88,15 +99,7 @@ a {
     overflow-y: scroll;
 }
 
-.contact-checkbox {
-    margin-right: 1rem;
-}
 
-.contains-check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .close-view {
     position: absolute;
@@ -106,6 +109,46 @@ a {
     color: white;
     border: none;
     cursor: pointer;
-    padding: .5rem;
+    padding: 0.5rem;
+}
+
+table {
+    margin: 0 auto;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: center;
+    width: 100%;
+}
+
+tr {
+    text-align: center;
+    width: 100%;
+}
+
+td {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.preview {
+    width: 100%;
+    height: 20vh;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.action {
+    width: 50px;
 }
 </style>
