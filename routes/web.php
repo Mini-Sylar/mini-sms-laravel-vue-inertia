@@ -36,6 +36,7 @@ Route::controller(ContactsController::class)->group(function () {
     Route::post('/add-contact', 'addData')->name('add-contact');
     Route::get('/delete-contact{id}', 'deleteData')->name('delete-contact');
     Route::post('/update-contact', 'updateUser')->name('update-contact');
+    Route::post('/send-message', 'sendMessage')->name('send-message');
 })->middleware(['auth', 'verified'])->name('dashboard');
 // Group Controller Routes
 Route::controller(GroupsController::class)->group(function () {

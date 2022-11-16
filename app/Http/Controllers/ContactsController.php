@@ -21,7 +21,7 @@ class ContactsController extends Controller
     {
         $data = Contact::all();
         $groups  = Group::all();
-        return inertia('Dashboard', ['contacts' => $data,'groups'=>$groups]);
+        return inertia('Dashboard', ['contacts' => $data, 'groups' => $groups]);
     }
 
     function deleteData($id)
@@ -35,5 +35,41 @@ class ContactsController extends Controller
         $contact->full_name = $req->input('name');
         $contact->contact_number = $req->input('phone_number');
         $contact->save();
+    }
+
+    function sendMessage(Request $req)
+    {
+        // create array from comma seperated values
+        dd($req->input('contactsBody'));
+        $contacts = rtrim($req->contactsBody, ',');
+        $contacts = explode(',', $contacts);
+        $message  = $req->message;
+
+        // Log::info($contacts);
+        // remove last value in contacts array
+        $url = env('MNOTIFY_QUICK_SMS') . '?key=' . env('MNOTIFY_API_KEY');
+        $data = [
+            'recipient' => $contacts,
+            'sender' => env('MNOTIFY_SENDER_ID'),
+            'message' => $message,
+            'is_schedule' => 'false',
+            'schedule_date' => ''
+        ];
+        dd($data);
+        // Send Message Here
+        $ch = curl_init();
+        $headers = array();
+        $headers[] = "Content-Type: application/json";
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        $result = curl_exec($ch);
+        $result = json_decode($result, TRUE);
+        curl_close($ch);
+        // // Update Analytics
+        // $analytics = analytic::where('user_name', session('user'))->first()->increment('number_of_messages_sent');
+        return back()->with('success', 'Message sent successfully');
     }
 }

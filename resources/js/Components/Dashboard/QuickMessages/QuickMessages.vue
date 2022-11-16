@@ -11,19 +11,21 @@
             <a v-on:click="isModalShow">Add from Contacts</a>
             <a v-on:click="isModalShowGroup">Add from Groups</a>
         </div>
-        <div class="message-container">
-            <div class="text-container">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Enter Message Here"></textarea>
+        <form>
+            <div class="message-container">
+                <div class="text-container">
+                    <textarea v-model="form.message" id="" cols="30" rows="10"
+                        placeholder="Enter Message Here"></textarea>
+                </div>
+                <div class="contacts-container">
+                    <textarea name="contactsBody" id="" cols="30" rows="10" placeholder="Enter Contacts Here"
+                        v-model="form.contactsBody"></textarea>
+                </div>
             </div>
-            <div class="contacts-container">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Enter Contacts Here"
-                    v-model="contactsChosen"></textarea>
+            <div class="send-message">
+                <a @click="submit">Send Message</a>
             </div>
-        </div>
-        <div class="send-message">
-            <!-- TODO: replace with link -->
-            <a href="#">Send Message</a>
-        </div>
+        </form>
     </div>
 </template>
 <script>
@@ -37,6 +39,10 @@ export default {
             showModalGroup: false,
             specific_user: 0,
             contactsChosen: [],
+            form: {
+                message: null,
+                contactsBody: null,
+            },
         };
     },
     components: {
@@ -59,9 +65,14 @@ export default {
             this.contactsChosen += data + ", ";
             console.log(data);
         },
-    }
+        submit() {
+            this.$inertia.post('/send-message', this.form)
+        },
+    },
 }
 </script>
+
+
 <style scoped>
 .main-quick-container {
     width: 100%;
@@ -90,7 +101,8 @@ textarea {
     padding: 1rem;
 }
 
-a {
+a,
+.link-send {
     display: block;
     width: max(20%, 200px);
     height: 100%;
