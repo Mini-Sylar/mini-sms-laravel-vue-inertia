@@ -1,7 +1,7 @@
 <template>
-    <div class="main-quick-container">
+    <div class="main-quick-container ">
         <ShowAvailableContacts></ShowAvailableContacts>
-        <ShowAvailableGroup></ShowAvailableGroup>
+        <!-- <ShowAvailableGroup></ShowAvailableGroup> -->
         <div class="add-from-container">
             <a>Add from Contacts</a>
             <a>Add from Groups</a>
@@ -22,12 +22,19 @@
 </template>
 <script>
 import ShowAvailableContacts from './Components/ShowAvailableContacts.vue';
-import ShowAvailableGroup from './Components/ShowAvailableGroup.vue';
+// import ShowAvailableGroup from './Components/ShowAvailableGroup.vue';
 
 export default {
+    data() {
+        return {
+            showModal: false,
+            showModalUpdate: false,
+            specific_user: 0,
+        };
+    },
     components: {
         "ShowAvailableContacts": ShowAvailableContacts,
-        "ShowAvailableGroup": ShowAvailableGroup,
+        // "ShowAvailableGroup": ShowAvailableGroup,
     },
 }
 </script>
