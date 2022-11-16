@@ -60,9 +60,7 @@ export default {
             this.showModalGroup = !this.showModalGroup;
         },
         receivedIndividualContacts(data) {
-            console.log("heard emit");
             this.form.contactsBody += data;
-            console.log(data);
         },
         submit() {
             this.$inertia.post('/send-message', this.form)
